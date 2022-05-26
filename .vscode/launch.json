@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "python": "/Users/peter/tensorflow-metal/bin/python",
+            "python": "~/tensorflow-metal/bin/python",
             "name": "Python: Current File",
             "type": "python",
             "request": "launch",

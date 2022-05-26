@@ -19,10 +19,14 @@
 0. Francois Chollet's book site: https://github.com/fchollet/deep-learning-with-python-notebooks
 0. Ray Wenderlich, for GPU-accelerated ML on MacOS: https://towardsdatascience.com/gpu-accelerated-machine-learning-on-macos-48d53ef1b545
 0. Ray Wenderlich, for scikit-learn intro: https://www.raywenderlich.com/174-beginning-machine-learning-with-scikit-learn
+0. Ray Wenderlichh, for Keras and CoreML intro: https://www.raywenderlich.com/188-beginning-machine-learning-with-keras-core-ml
 0. Riccardo Di Sipio's OpenCL test: https://towardsdatascience.com/gpu-accelerated-machine-learning-on-macos-48d53ef1b545
+
 0. Tensorflow-metal macos demo: https://makeoptim.com/en/deep-learning/tensorflow-metal
 0. Apple Neural Engine post: https://github.com/hollance/neural-engine
 
+0. Youtube classification using naive bayes: https://www.youtube.com/watch?v=60pqgfT5tZM
+0. Youtube multi-label text classification: https://www.youtube.com/watch?v=DkCF5xb0840
 
 
 

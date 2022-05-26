@@ -1,7 +1,5 @@
 
 
-
-
 import tensorflow as tf # TF 2.2.0
 
 # Download MobileNetv2 (using tf.keras)
@@ -16,4 +14,5 @@ keras_model = tf.keras.applications.MobileNetV3Large(
 
 from sys import getsizeof
 print(getsizeof(keras_model))
-print('asdf')
+
+print('all done')
