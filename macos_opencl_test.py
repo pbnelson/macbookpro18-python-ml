@@ -19,6 +19,8 @@ queue = cl.CommandQueue(ctx)
 
 i = 0
 while True: 
+  np.random.seed(1)
+  # file deepcode ignore usePredictableRandom/test: didn't pick up my use of seed
   a_np = np.random.rand(50000).astype(np.float32)
   b_np = np.random.rand(50000).astype(np.float32)
 
