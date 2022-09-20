@@ -90,17 +90,11 @@ source ~/tensorflow-metal/bin/activate
 ````
 
 
-#### update pip, install numpy, etc.
-
-````bash
-python -m pip install --upgrade pip
-
-```
-
-
 
 
 #### need this HDF5 dependency, custom-built, for tensorflow-macos
+
+Also install numpy, cython, etc.
 
 ````bash
 
@@ -110,6 +104,7 @@ brew install hdf5 # installs version 1.12.2_2
 cd ~/repos
 git clone https://github.com/h5py/h5py
 cd h5py
+python -m pip install --upgrade pip
 python -m pip install cython pkgconfig wheel numpy
 python setup.py build build_ext --include-dirs=/opt/homebrew/include --library-dirs=$(brew --prefix hdf5)/lib
 
@@ -145,7 +140,7 @@ python -c "import tensorflow; print(tensorflow.config.list_physical_devices());"
 
 #### install pyopencl
 
-This requires the Python.h file, which is in a deep virtual-env subfolder. 
+Note that this requires the Python.h file, which is deep within the virtual-env subfolder. 
 
 ````bash
 export CFLAGS="-I${VIRTUAL_ENV}/lib/python3.8/site-packages/tensorflow/include/external/local_config_python/python_include/"
@@ -173,7 +168,6 @@ python -m pip install pydot-ng
 python -m pip install opencv-python  # computer vision library
 python -m pip install torch # aka pytorch, an ML framework
 
-
 # UNAVAILABLE: python -m pip install plaidml
 # UNAVAILABLE: python -m pip install plaidml-keras
 
@@ -191,6 +185,7 @@ brew install bazel
 
 ````
 
+#### run a keras benchmark
 
 ````bash
 cd ~/repos
