@@ -218,7 +218,12 @@ For adding Coral USB support to the above. These instructions presume the Python
 0. Keras and Google Edge TPU's: https://towardsdatascience.com/using-keras-on-googles-edge-tpu-7f53750d952
 0. Official Github repo for Coral examples: https://github.com/google-coral/pycoral/tree/master/examples
 0. Prebuilt Coral Models: https://coral.ai/models/
-
+0. Tensorflow BERT text classification: https://www.analyticsvidhya.com/blog/2021/08/training-bert-text-classifier-on-tensor-processing-unit-tpu/
+0. More BERT (text) on TPU (cloud): https://www.tensorflow.org/text/tutorials/bert_glue
+0. Tensorflow->EdgeTPU Conversion: https://coral.ai/docs/edgetpu/models-intro/#compatibility-overview
+0. TPU Text Classification Video: https://www.youtube.com/watch?v=hN_wL_cYQ_M
+0. Google Labs TPU Text Classification: https://colab.research.google.com/github/solidgose/solidgose_experiments/blob/master/bert_tpu_tweet_model.ipynb
+0. Text Classification (RoBERTa) and TPU's: https://www.kaggle.com/code/dimasmunoz/text-classification-with-roberta-and-tpus/notebook
 
 
 
