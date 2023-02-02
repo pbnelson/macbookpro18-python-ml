@@ -59,18 +59,20 @@ brew info openblas | grep openblas:  # returns 0.3.21
 #### be sure to be on Python v3.9, exactly
 
 ````bash
-brew reinstall python@3.9
+brew uninstall python@3.9
 brew unlink python
 brew unlink python@3
 brew unlink python@3.8
+brew unlink python@3.9
 brew unlink python@3.10
+brew install python@3.9
 brew link python@3.9 --force
 
 # make sure to symlink this properly
 sudo ln -s -f /opt/homebrew/bin/python3.9 /usr/local/bin/python3
 sudo ln -s -f /opt/homebrew/bin/python3.9 /usr/local/bin/python
 
-# confirm this returns 3.8
+# confirm this returns 3.9
 python --version
 
 # update to latest pip
@@ -152,7 +154,7 @@ python -c "import tensorflow; print(tensorflow.config.list_physical_devices());"
 Note that this requires the Python.h file, which is deep within the virtual-env subfolder. 
 
 ````bash
-export CFLAGS="-I${VIRTUAL_ENV}/lib/python3.8/site-packages/tensorflow/include/external/local_config_python/python_include/"
+export CFLAGS="-I${VIRTUAL_ENV}/lib/python3.9/site-packages/tensorflow/include/external/local_config_python/python_include/"
 python -m pip install pyopencl
 
 ````
@@ -217,7 +219,7 @@ bazel run keras/benchmarks/keras_examples_benchmarks:text_classification_transfo
 ## Addendum #1: Coral USB (Google Edge TPU)
 
 
-For adding Coral USB support to the above. These instructions presume the Python 3.8 `tensorflow-metal` virtual environment was setup and activated.
+For adding Coral USB support to the above. These instructions presume the Python 3.9 `tensorflow-metal` virtual environment was setup and activated.
 
 
 ### PLATFORM 
