@@ -56,23 +56,29 @@ brew info openblas | grep openblas:  # returns 0.3.21
 
 
 
-#### be sure to be on Python v3.8, exactly
+#### be sure to be on Python v3.9, exactly
 
 ````bash
-brew reinstall python@3.8
+brew reinstall python@3.9
 brew unlink python
 brew unlink python@3
 brew unlink python@3.8
-brew link python@3.8 --force
-alias python=python3
+brew unlink python@3.10
+brew link python@3.9 --force
+
+# make sure to symlink this properly
+sudo ln -s -f /opt/homebrew/bin/python3.9 /usr/local/bin/python3
+sudo ln -s -f /opt/homebrew/bin/python3.9 /usr/local/bin/python
 
 # confirm this returns 3.8
-python3 --version
+python --version
 
 # update to latest pip
-python3 -m pip install --upgrade pip
+python -m pip install --upgrade pip
 
 ````
+
+
 
 
 
@@ -86,6 +92,7 @@ python3 -m venv tensorflow-metal
 source ~/tensorflow-metal/bin/activate
 # the cmdline prompt should show (tensorflow-metal)$
 # note, to deactivate this venv, simply use command: `deactivate`
+python3 --version # confirm 3.9.x
 
 ````
 
@@ -138,6 +145,8 @@ python -c "import tensorflow; print(tensorflow.config.list_physical_devices());"
 ````
 
 
+
+
 #### install pyopencl
 
 Note that this requires the Python.h file, which is deep within the virtual-env subfolder. 
@@ -167,6 +176,7 @@ python -m pip install graphviz
 python -m pip install pydot-ng
 python -m pip install opencv-python  # computer vision library
 python -m pip install torch # aka pytorch, an ML framework
+python -m pip install jupyter
 
 # UNAVAILABLE: python -m pip install plaidml
 # UNAVAILABLE: python -m pip install plaidml-keras
@@ -191,7 +201,8 @@ brew install bazel
 cd ~/repos
 git clone https://github.com/fchollet/keras
 cd ~/repos/keras
-bazel run keras/benchmarks/keras_examples_benchmarks:cifar10_cnn_benchmark_test
+bazel run keras/benchmarks/keras_examples_benchmarks:cifar10_cnn_benchmark_test.py
+bazel run keras/benchmarks/keras_examples_benchmarks:text_classification_transformer_benchmark_test.py
 
 ````
 
@@ -200,7 +211,11 @@ bazel run keras/benchmarks/keras_examples_benchmarks:cifar10_cnn_benchmark_test
 
 
 
-## Addendum: Coral USB (Edge TPU)
+
+
+
+## Addendum #1: Coral USB (Google Edge TPU)
+
 
 For adding Coral USB support to the above. These instructions presume the Python 3.8 `tensorflow-metal` virtual environment was setup and activated.
 
@@ -220,7 +235,7 @@ For adding Coral USB support to the above. These instructions presume the Python
 0. Prebuilt Coral Models: https://coral.ai/models/
 0. Tensorflow BERT text classification: https://www.analyticsvidhya.com/blog/2021/08/training-bert-text-classifier-on-tensor-processing-unit-tpu/
 0. More BERT (text) on TPU (cloud): https://www.tensorflow.org/text/tutorials/bert_glue
-0. Tensorflow->EdgeTPU Conversion: https://coral.ai/docs/edgetpu/models-intro/#compatibility-overview
+0. Tensorflow->EdgeTPU Conversion: https://coral.ai/docs/edgetpu/models-intro/
 0. TPU Text Classification Video: https://www.youtube.com/watch?v=hN_wL_cYQ_M
 0. Google Labs TPU Text Classification: https://colab.research.google.com/github/solidgose/solidgose_experiments/blob/master/bert_tpu_tweet_model.ipynb
 0. Text Classification (RoBERTa) and TPU's: https://www.kaggle.com/code/dimasmunoz/text-classification-with-roberta-and-tpus/notebook
@@ -235,6 +250,7 @@ The `tensorflow-metal` environment should have been created already, see above.
 cd ~
 python3 -m venv tensorflow-metal
 source ~/tensorflow-metal/bin/activate
+export PYTHONPATH="${HOME}/tensorflow-metal/lib/python3.9/site-packages"
 # the cmdline prompt should show (tensorflow-metal)$
 # note, to deactivate this venv, simply use command: `deactivate`
 
@@ -242,14 +258,15 @@ source ~/tensorflow-metal/bin/activate
 
 
 
-#### install Mac Edge TPU runtime 
+#### install Mac Edge TPU (Coral) runtime 
 
 ````bash
 cd ~/Downloads
 curl -LO https://github.com/google-coral/libedgetpu/releases/download/release-grouper/edgetpu_runtime_20220308.zip
-unzip edgetpu_runtime_20220308.zip
+curl -LO https://github.com/google-coral/libedgetpu/releases/download/release-grouper/edgetpu_runtime_20221024.zip
+unzip edgetpu_runtime_20221024.zip
 cd edgetpu_runtime
-sudo bash install.sh  # answer N to max freq question
+sudo bash ./install.sh  # answer N to max freq question
 python3 -m pip install --extra-index-url https://google-coral.github.io/py-repo/ pycoral~=2.0
 
 ````
@@ -298,3 +315,35 @@ Output of above should be something like this:
     Ara macao (Scarlet Macaw): 0.75781
     
 
+
+
+
+
+
+
+
+
+
+
+
+## Addendum #2: Hosted Google Edge TPU
+
+Video by Lak Lakshmanan (time 13m30s): https://www.youtube.com/watch?v=hN_wL_cYQ_M 
+
+
+#### Install Google Cloud Shell/CLI
+
+See: https://cloud.google.com/sdk/docs/install-sdk
+
+````bash
+cd ~/Downloads
+curl -LO https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-410.0.0-darwin-arm.tar.gz
+tar -xzvf ./google-cloud-cli-410.0.0-darwin-arm.tar.gz
+./google-cloud-sdk/install.sh
+
+gcloud config set account <yourgoogleaccountname, e.g. someone@google.com>   # use your own google account
+gcloud auth login
+
+gcloud projects create coral-test-3   # must be unique
+gcloud config set project coral-test-3
+gcloud cloud-shell ssh
