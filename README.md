@@ -65,6 +65,7 @@ brew unlink python@3
 brew unlink python@3.8
 brew unlink python@3.9
 brew unlink python@3.10
+brew unlink python@3.11
 brew install python@3.9
 brew link python@3.9 --force
 
